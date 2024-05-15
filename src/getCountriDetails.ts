@@ -1,15 +1,15 @@
-type CountryDetails = {
+export type CountryDetails = {
   name: {
     common: string;
     official: string;
+  };
 
-    cca3: string;
-    flag: string;
-    flags: {
-      png: string;
-      svg: string;
-      alt: string;
-    };
+  cca3: string;
+  flag: string;
+  flags: {
+    png: string;
+    svg: string;
+    alt: string;
   };
 };
 
