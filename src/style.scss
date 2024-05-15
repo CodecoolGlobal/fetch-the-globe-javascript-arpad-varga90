@@ -1,0 +1,25 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --font-size: 2rem;
+}
+
+.countries-list {
+  margin: 0;
+  padding: 0;
+
+  &__element {
+    list-style-type: none;
+    font-size: var(--font-size);
+    cursor: pointer;
+
+    &:hover {
+      background-color: #a0c49d;
+    }
+  }
+}

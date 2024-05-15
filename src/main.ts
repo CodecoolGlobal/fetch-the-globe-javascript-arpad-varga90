@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.scss";
 
 import getCountries from "./getCountries";
 
@@ -15,11 +15,13 @@ async function main() {
   const countries = await getCountries(ALL);
 
   const ul = document.createElement("ul");
+  ul.className = "countries-list";
 
   for (const country of countries) {
     const li = document.createElement("li");
     li.innerText = country.name.common;
     li.dataset.cc = country.cca3;
+    li.className = "countries-list__element";
     ul.append(li);
   }
   app.append(ul);
