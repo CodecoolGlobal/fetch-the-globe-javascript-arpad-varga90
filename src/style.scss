@@ -23,3 +23,26 @@
     }
   }
 }
+
+.country {
+  width: 40rem;
+  padding: 1rem;
+  background-color: white;
+
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+
+  box-shadow: 0px 1px 5px 1px #00000091;
+
+  &__flag {
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
+      border: 2px solid black;
+    }
+  }
+}
