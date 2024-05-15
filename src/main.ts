@@ -1,16 +1,28 @@
 import "./style.css";
 
+import getCountries from "./getCountries";
+
 // GET All Countries
-// https://jvvkjy8utk.execute-api.eu-central-1.amazonaws.com/tourist/api/countries/all
+const ALL =
+  "https://jvvkjy8utk.execute-api.eu-central-1.amazonaws.com/tourist/api/countries/all";
 
 // GET Countries by cca3
 // https://jvvkjy8utk.execute-api.eu-central-1.amazonaws.com/tourist/api/countries/by-cca3/FRA
 
+const app = document.querySelector<HTMLDivElement>("#app")!;
 
-const app = document.querySelector<HTMLDivElement>("#app");
+async function main() {
+  const countries = await getCountries(ALL);
 
-if (app) {
-  app.innerHTML = `<h1>Hello World</h1>`;
-} else {
-  console.log("Error happened");
+  const ul = document.createElement("ul");
+
+  for (const country of countries) {
+    const li = document.createElement("li");
+    li.innerText = country.name.common;
+    li.dataset.cc = country.cca3;
+    ul.append(li);
+  }
+  app.append(ul);
 }
+
+main();
