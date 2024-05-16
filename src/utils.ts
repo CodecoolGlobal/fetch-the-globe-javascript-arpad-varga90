@@ -1,13 +1,12 @@
-type Attributes = {
-  [key: string]: string;
-};
-
-export const _el = (tag: string, attributes: Attributes): HTMLElement => {
+export const _el = <K extends keyof HTMLElementTagNameMap>(
+  tag: K,
+  attributes: Partial<HTMLElementTagNameMap[K]> = {}
+): HTMLElementTagNameMap[K] => {
   const el = document.createElement(tag);
 
   for (const entry of Object.entries(attributes)) {
     const [key, value] = entry;
-    el[key] = value;
+    (el as any)[key] = value;
   }
 
   return el;
