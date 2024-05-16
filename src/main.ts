@@ -1,21 +1,15 @@
 import "./style.scss";
 
-import getCountries from "./getCountries";
-import getCountryDetails, { type CountryDetails } from "./getCountriDetails";
+import getCountries from "./apiClient/getCountries";
+import getCountryDetails, {
+  type CountryDetails,
+} from "./apiClient/getCountriDetails";
 import { _el, _replaceOrAdd } from "./utils";
-
-// GET All Countries
-const ALL =
-  "https://jvvkjy8utk.execute-api.eu-central-1.amazonaws.com/tourist/api/countries/all";
-
-// GET Countries by cca3
-const DETAILS =
-  "https://jvvkjy8utk.execute-api.eu-central-1.amazonaws.com/tourist/api/countries/by-cca3";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 async function main() {
-  const countries = await getCountries(ALL);
+  const countries = await getCountries();
 
   const ul = _el("ul", { className: "countries-list" });
 
@@ -39,7 +33,7 @@ async function handleCountryClick(event: MouseEvent) {
     return;
   }
 
-  const details = await getCountryDetails(DETAILS, cc);
+  const details = await getCountryDetails(cc);
   renderCountry(details);
 }
 
