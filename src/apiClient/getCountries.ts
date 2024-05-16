@@ -2,7 +2,7 @@
 const ALL =
   "https://jvvkjy8utk.execute-api.eu-central-1.amazonaws.com/tourist/api/countries/all";
 
-type Country = {
+export type Country = {
   name: {
     common: string;
     official: string;
