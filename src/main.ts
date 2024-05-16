@@ -1,9 +1,11 @@
 import "./style.scss";
 
-import getCountries from "./apiClient/getCountries";
-import getCountryDetails, {
+import {
+  getCountries,
+  getCountryDetails,
   type CountryDetails,
-} from "./apiClient/getCountriDetails";
+} from "./apiClient";
+
 import { _el, _replaceOrAdd } from "./utils";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
@@ -27,12 +29,19 @@ async function main() {
 
 async function handleCountryClick(event: MouseEvent) {
   const target = event.target as HTMLElement;
-  const cc = target?.dataset?.cc;
+  await activeCountry(target);
+}
 
+async function activeCountry(el: HTMLElement) {
+  const cc = el?.dataset?.cc;
   if (!cc) {
     return;
   }
 
+  const activeClass = "countries-list__element--active";
+  document.querySelector(`.${activeClass}`)?.classList.remove(activeClass);
+
+  el.classList.add(activeClass);
   const details = await getCountryDetails(cc);
   renderCountry(details);
 }
@@ -42,8 +51,31 @@ function renderCountry(country: CountryDetails) {
   const countryFlag = _el("div", { className: "country__flag" });
   const flagImg = _el("img", { src: country.flags.svg });
 
-  countryDiv.append(countryFlag);
+  const nextButton = _el("button", {
+    className: "country__next_btn",
+    innerText: "Next",
+  });
+
+  nextButton.onclick = () => {
+    const activeClass = ".countries-list__element--active";
+    const activeElement = document.querySelector(activeClass);
+
+    const nextSibling = activeElement?.nextSibling;
+    if (nextSibling) {
+      activeCountry(nextSibling as HTMLElement);
+    }
+  };
+
+  const prevButton = _el("button", {
+    className: "country__prev_btn",
+    innerText: "Prev",
+  });
+
+  const controlPanel = _el("div", { className: "country__controls" });
+
+  countryDiv.append(countryFlag, controlPanel);
   countryFlag.append(flagImg);
+  controlPanel.append(prevButton, nextButton);
 
   _replaceOrAdd(".country", countryDiv);
 }
