@@ -71,6 +71,16 @@ function renderCountry(country: CountryDetails) {
     innerText: "Prev",
   });
 
+  prevButton.onclick = () => {
+    const activeClass = ".countries-list__element--active";
+    const activeElement = document.querySelector(activeClass);
+
+    const prevSibling = activeElement?.previousSibling;
+    if (prevSibling) {
+      activeCountry(prevSibling as HTMLElement);
+    }
+  };
+
   const controlPanel = _el("div", { className: "country__controls" });
 
   countryDiv.append(countryFlag, controlPanel);
