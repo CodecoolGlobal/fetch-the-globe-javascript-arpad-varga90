@@ -25,6 +25,16 @@ async function main() {
     ul.append(li);
   }
   app.append(ul);
+
+  const params = new URLSearchParams(window.location.search);
+  const cca = params.get("cca")?.toUpperCase();
+  if (cca) {
+    const coutryEl = document.querySelector(`[data-cc="${cca}"]`);
+    if (coutryEl) {
+      await activeCountry(coutryEl as HTMLElement);
+      coutryEl.scrollIntoView();
+    }
+  }
 }
 
 async function handleCountryClick(event: MouseEvent) {
