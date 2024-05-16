@@ -2,6 +2,7 @@ import "./style.scss";
 
 import getCountries from "./getCountries";
 import getCountryDetails, { type CountryDetails } from "./getCountriDetails";
+import { _el, _replaceOrAdd } from "./utils";
 
 // GET All Countries
 const ALL =
@@ -16,14 +17,14 @@ const app = document.querySelector<HTMLDivElement>("#app")!;
 async function main() {
   const countries = await getCountries(ALL);
 
-  const ul = document.createElement("ul");
-  ul.className = "countries-list";
+  const ul = _el("ul", { className: "countries-list" });
 
   for (const country of countries) {
-    const li = document.createElement("li");
-    li.innerText = country.name.common;
+    const li = _el("li", {
+      innerText: country.name.common,
+      className: "countries-list__element",
+    });
     li.dataset.cc = country.cca3;
-    li.className = "countries-list__element";
     li.onclick = handleCountryClick;
     ul.append(li);
   }
@@ -32,11 +33,8 @@ async function main() {
 
 async function handleCountryClick(event: MouseEvent) {
   const target = event.target as HTMLElement;
-  if (!target) {
-    return;
-  }
+  const cc = target?.dataset?.cc;
 
-  const cc = target.dataset.cc;
   if (!cc) {
     return;
   }
@@ -46,25 +44,14 @@ async function handleCountryClick(event: MouseEvent) {
 }
 
 function renderCountry(country: CountryDetails) {
-  const div = document.createElement("div");
-  div.className = "country";
+  const countryDiv = _el("div", { className: "country" });
+  const countryFlag = _el("div", { className: "country__flag" });
+  const flagImg = _el("img", { src: country.flags.svg });
 
-  const flag = document.createElement("div");
-  flag.className = "country__flag";
+  countryDiv.append(countryFlag);
+  countryFlag.append(flagImg);
 
-  const img = document.createElement("img");
-  img.src = country.flags.svg;
-
-  div.append(flag);
-  flag.append(img);
-
-  const existing = document.querySelector(".country");
-
-  if (existing) {
-    existing.replaceWith(div);
-  } else {
-    app.append(div);
-  }
+  _replaceOrAdd(".country", countryDiv);
 }
 
 main();
