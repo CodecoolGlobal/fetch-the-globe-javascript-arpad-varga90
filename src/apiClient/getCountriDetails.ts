@@ -14,6 +14,7 @@ export type CountryDetails = {
     svg: string;
     alt: string;
   };
+  borders: Array<string>;
 };
 
 export default async function getCountryDetails(

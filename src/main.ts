@@ -56,10 +56,21 @@ async function activeCountry(el: HTMLElement) {
   renderCountry(details);
 }
 
-function renderCountry(country: CountryDetails) {
+async function renderCountry(country: CountryDetails) {
   const countryDiv = _el("div", { className: "country" });
   const countryFlag = _el("div", { className: "country__flag" });
   const flagImg = _el("img", { src: country.flags.svg });
+
+  const borderList = _el("ul", { className: "country__borders" });
+
+  for (const border of country.borders) {
+    const borderingCountry = await getCountryDetails(border);
+    const borderEl = _el("li", {
+      className: "country__borders--country",
+      innerText: borderingCountry.name.common,
+    });
+    borderList.append(borderEl);
+  }
 
   const nextButton = _el("button", {
     className: "country__next_btn",
@@ -93,7 +104,7 @@ function renderCountry(country: CountryDetails) {
 
   const controlPanel = _el("div", { className: "country__controls" });
 
-  countryDiv.append(countryFlag, controlPanel);
+  countryDiv.append(countryFlag, borderList, controlPanel);
   countryFlag.append(flagImg);
   controlPanel.append(prevButton, nextButton);
 
