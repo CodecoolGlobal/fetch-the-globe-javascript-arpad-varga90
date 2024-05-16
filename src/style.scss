@@ -22,6 +22,10 @@
       background-color: #a0c49d;
     }
   }
+
+  &__element--active {
+    background-color: #a0c49d;
+  }
 }
 
 .country {
@@ -30,9 +34,9 @@
   background-color: white;
 
   position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1;
+  top: 0;
+  right: 0;
+  z-index: 10;
 
   box-shadow: 0px 1px 5px 1px #00000091;
 
@@ -44,5 +48,15 @@
       height: auto;
       border: 2px solid black;
     }
+  }
+
+  &__next_btn {
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+
+  &__prev_btn {
+    padding: 1rem;
+    font-size: 1.2rem;
   }
 }
